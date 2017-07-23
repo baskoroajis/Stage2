@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_c449065ca1a7e8aef509f874f3c6701aec8e9db4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_d140619f284f803d806125bfe6e572b3084ecb8c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_645f39328fa5e8420fdf1a6effae1948686d782a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_934ebb3e45fdd5e215b4a2ce53ea5be02202dc0d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_887a985ab46078782feae3c2039873348718b488/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Library/Android/sdk/extras/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_f170c15837ece3e91f43bacf216ed9c0a838ea8e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.0_d2e129aaa612778699d2c920ad4bfd2209a99a2e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_77b4891e1897db90fe263dfd8ae512664f2c2e99/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_fe0bad0a683bae3526b7acf93c1f9eeda396ea3c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_caee9d5c26a6a61c237030eebe9e24a225e1bc5c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="746c57b14e332e11147ca8f37800d88a713d7777">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_15e33b40ff556fffb10b92174b67280bd72d3dad/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/picasso-2.5.2_84c05217143b401ba01cb24c9a059248f624285e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_e06693a7dc906115177e781441e3c0f127cf4a81/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Macpro/Projects/Stage1/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5ea8ad80c77daab7077973f571a52bb89d986344">
+        <dex dex="/Users/Macpro/Projects/Stage1/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_2c657c6e2ee47a3feeb4fa8ee8ac7fdf83bc6f0c/classes.dex" />
+    </item>
+
+</items>

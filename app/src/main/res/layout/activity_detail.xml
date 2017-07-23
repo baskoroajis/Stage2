@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_detail"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.baskoroaji.stage2.DetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/colorPaleGreen">
+
+                <TextView android:id="@+id/tv_movietittle_detailspage"
+                    android:textSize="28sp"
+                    tools:text="Movie tittle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/activity_default_padding"
+                    android:textColor="@color/colorWhite"/>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/imageposter_height"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <ImageView
+                    android:layout_width="@dimen/zerovalue"
+                    android:layout_height="match_parent"
+                    android:id="@+id/iv_movie_detailpage"
+                    android:background="@color/colorPrimaryBlack"
+                    android:layout_weight="1"
+                    android:scaleType="centerCrop"
+                    android:layout_margin="20dp"
+                    />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="@dimen/zerovalue"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:padding="@dimen/activity_default_padding">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_year_detailpage"
+                        android:textSize="25sp"
+                       />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_rating_detailpage"
+                       />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView
+                android:layout_margin="@dimen/textview_default_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_overview_detailpage"
+                />
+        </TableLayout>
+    </ScrollView>
+</FrameLayout>
