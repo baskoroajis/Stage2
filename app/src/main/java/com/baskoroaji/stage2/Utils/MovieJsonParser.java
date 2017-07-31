@@ -1,6 +1,8 @@
-package com.baskoroaji.stage2.Utils;
+package com.baskoroaji.stage2.utils;
 
-import com.baskoroaji.stage2.Models.Movie;
+import com.baskoroaji.stage2.models.Movie;
+import com.baskoroaji.stage2.models.Review;
+import com.baskoroaji.stage2.models.Video;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +33,40 @@ public final class MovieJsonParser {
             movies.add(movie);
         }
         return movies;
+    }
+
+    public static  List<Video> deserializeJsonVideo(String json) throws  JSONException{
+        JSONObject result = new JSONObject(json);
+        JSONArray movieResults = result.getJSONArray("results");
+
+        List<Video> videos = new ArrayList<>();
+        for (int i =0; i < movieResults.length(); i++){
+            JSONObject videoJsonObject = movieResults.getJSONObject(i);
+            Video video = new Video(videoJsonObject.getString("id"),
+                    videoJsonObject.getString("key"),
+                    videoJsonObject.getString("name"),
+                    videoJsonObject.getString("site"));
+            videos.add(video);
+        }
+
+        return videos;
+    }
+
+    public static  List<Review> deserializeJsonReview(String json) throws  JSONException{
+        JSONObject result = new JSONObject(json);
+        JSONArray movieResults = result.getJSONArray("results");
+
+        List<Review> reviews = new ArrayList<>();
+        for (int i =0; i < movieResults.length(); i++){
+            JSONObject videoJsonObject = movieResults.getJSONObject(i);
+            Review review = new Review(videoJsonObject.getString("id"),
+                    videoJsonObject.getString("author"),
+                    videoJsonObject.getString("content"),
+                    videoJsonObject.getString("url"));
+            reviews.add(review);
+        }
+
+        return reviews;
     }
 
 }

@@ -2,6 +2,8 @@ package com.baskoroaji.stage2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -15,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.baskoroaji.stage2.Adapters.MovieListAdapter;
-import com.baskoroaji.stage2.Models.Movie;
-import com.baskoroaji.stage2.Utils.MovieJsonParser;
-import com.baskoroaji.stage2.Utils.NetworkUtils;
+import com.baskoroaji.stage2.adapters.MovieListAdapter;
+import com.baskoroaji.stage2.data.MovieReaderContract;
+import com.baskoroaji.stage2.data.MovieReaderDBHelper;
+import com.baskoroaji.stage2.models.Movie;
+import com.baskoroaji.stage2.utils.MovieJsonParser;
+import com.baskoroaji.stage2.utils.NetworkUtils;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MovieListAdapter.ClickRecyclerListener{
@@ -35,12 +40,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     private final String SORTBY_IDENTIFIER = "SORTBY";
 
     private boolean isSortByPopular = true;
+    private boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loadingMovie);
+
+
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie);
         final GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2);
         mRecyclerView.setLayoutManager(gridLayoutManager);
@@ -56,12 +64,17 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
                 int lastVisibleItem = gridLayoutManager.findLastVisibleItemPosition();
 
                 if (!mLoading && lastVisibleItem == totalItem - 1) {
-                    requestData(totalItem);
+                    if (!isFavourite)
+                      requestData(totalItem);
                 }
             }
         });
 
-        requestData(0);
+        if (!isFavourite)
+            requestData(0);
+        else
+            getFavourite();
+
     }
 
 
@@ -79,14 +92,19 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             case R.id.action_sortbypopular:
                 //request sort by popular
                 isSortByPopular = true;
+                isFavourite = false;
                 mListMovie = null;
                 requestData(0);
                 break;
             case R.id.action_sortbyrates:
                 //request sort by highest rate
                 isSortByPopular = false;
+                isFavourite = false;
                 mListMovie = null;
                 requestData(0);
+                break;
+            case R.id.action_sortbyfavourite:
+                getFavourite();
                 break;
             default:
                 break;
@@ -103,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         startActivity(i);
     }
 
+    void getFavourite(){
+        isFavourite = true;
+        if (mListMovie != null){
+            mListMovie.clear();
+        }
+        mListMovie = getAllFavoriteData();
+        movieListAdapter.setMovieData(mListMovie);
+    }
+
     private void requestData(int page){
         URL movieURL = null;
         if (isSortByPopular){
@@ -113,6 +140,46 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         }
         new FetchMovie().execute(movieURL);
         mLoadingIndicator.setVisibility(View.VISIBLE);
+    }
+
+    List<Movie> getAllFavoriteData(){
+        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
+        SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
+
+        Cursor cursor = db2.query(
+                MovieReaderContract.MovieEntry.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        List<Movie> moviews = new ArrayList<>();
+        while(cursor.moveToNext()) {
+
+            String id = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_ID));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_TITLE));
+            String imgPoster = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_IMGPOSTER));
+            String overView = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_OVERVIEW));
+            String vote_average = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_VOTE));
+            String releaseDate = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_RELEASEDATE));
+
+            Movie movie = new Movie(Integer.valueOf(id), title, imgPoster, overView, Double.valueOf(vote_average), releaseDate);
+
+            Log.d("Add ", ""+movie);
+            moviews.add(movie);
+        }
+        if (moviews.size() > 0){
+            cursor.close();
+            return moviews;
+        }else{
+            cursor.close();
+            return null;
+        }
+//        Log.d("cursor count ",""+cursor.getCount());
+//        cursor.close();
     }
 
     public class FetchMovie extends AsyncTask<URL,  Void, List<Movie>>{

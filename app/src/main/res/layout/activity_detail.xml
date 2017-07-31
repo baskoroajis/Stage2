@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_detail"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     tools:context="com.baskoroaji.stage2.DetailActivity">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableLayout
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -52,12 +57,22 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_year_detailpage"
                         android:textSize="25sp"
-                       />
+                        />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/tv_rating_detailpage"
-                       />
+                        />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mark as favourite"
+                        android:id="@+id/btn_favourite"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="remove from favourite"
+                        android:id="@+id/btn_removefavourite"/>
                 </LinearLayout>
             </LinearLayout>
             <TextView
@@ -66,6 +81,28 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_overview_detailpage"
                 />
-        </TableLayout>
-    </ScrollView>
-</FrameLayout>
+
+            </TableLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_videolist"
+                android:clipToPadding="false"
+                android:numColumns="auto_fit">
+            </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rv_reviewlist"
+                android:clipToPadding="false"
+                android:numColumns="auto_fit">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+
+
+</RelativeLayout>

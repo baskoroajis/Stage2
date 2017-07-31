@@ -1,15 +1,16 @@
-package com.baskoroaji.stage2.Adapters;
+package com.baskoroaji.stage2.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.baskoroaji.stage2.Models.Movie;
+import com.baskoroaji.stage2.models.Movie;
 import com.baskoroaji.stage2.R;
-import com.baskoroaji.stage2.Utils.NetworkUtils;
+import com.baskoroaji.stage2.utils.NetworkUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -30,6 +31,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.Movi
 
     public MovieListAdapter(ClickRecyclerListener clickListener){
         mClickListener = clickListener;
+        Log.d("assign movie adapter","");
     }
     @Override
     public MovieItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

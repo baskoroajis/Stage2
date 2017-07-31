@@ -1,4 +1,4 @@
-package com.baskoroaji.stage2.Models;
+package com.baskoroaji.stage2.models;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -28,6 +28,11 @@ public class Movie implements Serializable {
 
     public String getYear(){
         SimpleDateFormat dformat = new SimpleDateFormat("yyyy");
+        return  dformat.format(this.releaseDate);
+    }
+
+    public String GetYYYMMDD(){
+        SimpleDateFormat dformat = new SimpleDateFormat("yyyy-MM-dd");
         return  dformat.format(this.releaseDate);
     }
 
