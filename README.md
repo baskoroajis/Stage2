@@ -1,7 +1,5 @@
-# Stage1_PopMovie
-This is (Pop movie ) stage 1 repository for udacity scholarship task.
+# Stage2_PopMovie
+This is (Pop movie ) stage 2 repository for udacity scholarship task.
 
-please edit the APIKEY of movieDB within your own APIKEY, go to class 
-NetworkUtils.java change this line to yours private static final String APIKEY = "";
+please edit the APIKEY of movieDB within your own APIKEY, go to gradle.properties then change MOVIEDBAPIKEY="XXXX" with yours APIKEY
 
-or view in the //TODO console for the details.
