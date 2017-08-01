@@ -30,6 +30,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.baskoroaji.stage2.adapters.ReviewListAdapter;
 import com.baskoroaji.stage2.adapters.VideoListAdapter;
+import com.baskoroaji.stage2.data.MovieContentProvider;
 import com.baskoroaji.stage2.data.MovieReaderContract;
 import com.baskoroaji.stage2.data.MovieReaderDBHelper;
 import com.baskoroaji.stage2.models.Movie;
@@ -63,12 +64,15 @@ public class DetailActivity extends AppCompatActivity implements VideoListAdapte
     private ReviewListAdapter mReviewAdapter;
 
     private List<Video> videosData;
-    private Context mContext;
+    private  MovieContentProvider movieContentProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        movieContentProvider = new MovieContentProvider();
+        movieContentProvider.setContext(this);
+
         mMovieTitleTextView = (TextView) findViewById(R.id.tv_movietittle_detailspage);
         mYearTextView = (TextView) findViewById(R.id.tv_year_detailpage);
         mRatingTextView = (TextView) findViewById(R.id.tv_rating_detailpage);
@@ -111,7 +115,7 @@ public class DetailActivity extends AppCompatActivity implements VideoListAdapte
         if (i.hasExtra(MainActivity.DATA_IDENTIFIER)){
             mData = (Movie) i.getSerializableExtra(MainActivity.DATA_IDENTIFIER);
             mMovieTitleTextView.setText(mData.title);
-            mYearTextView.setText(mData.getYear());
+            mYearTextView.setText(mData.GetYYYMMDD());
             mRatingTextView.setText(mData.vote_average.toString());
             String imgUrl = NetworkUtils.BASE_URL_IMAGE + mData.imgPoster;
             Picasso.with(this).load(imgUrl).into(mPosterImageView);
@@ -215,42 +219,20 @@ public class DetailActivity extends AppCompatActivity implements VideoListAdapte
         }
     }
 
-
     boolean isMovieFavorite(){
-        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
-        SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = db2.query(
-                MovieReaderContract.MovieEntry.TABLE_NAME,                     // The table to query
-                null,                               // The columns to return
-                MovieReaderContract.MovieEntry.COLUMN_NAME_ID + " = ?",                                // The columns for the WHERE clause
-                new String[]{Integer.toString(mData.id)},                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
+        Cursor cursor = movieContentProvider.query(null,null, MovieReaderContract.MovieEntry.COLUMN_NAME_ID + " = ?", new String[]{Integer.toString(mData.id)}, null);
 
         if (cursor.getCount() == 0){
-            Log.d("return ","false");
             cursor.close();
             return false;
         }
         else{
-            Log.d("return ","true");
             cursor.close();
             return true;
         }
-
-
-
-
     }
 
     void putData(){
-        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
-
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(MovieReaderContract.MovieEntry.COLUMN_NAME_TITLE, mData.title);
         values.put(MovieReaderContract.MovieEntry.COLUMN_NAME_ID, Integer.toString(mData.id));
@@ -259,51 +241,15 @@ public class DetailActivity extends AppCompatActivity implements VideoListAdapte
         values.put(MovieReaderContract.MovieEntry.COLUMN_NAME_VOTE, Double.toString(mData.vote_average));
         values.put(MovieReaderContract.MovieEntry.COLUMN_NAME_RELEASEDATE, mData.GetYYYMMDD());
 
-
-        long newRowId = db.insert(MovieReaderContract.MovieEntry.TABLE_NAME, null, values);
-
+        movieContentProvider.insert(null,values);
         hideButtonFavouriteStatus();
     }
 
     void deleteData(){
-        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
         String selection = MovieReaderContract.MovieEntry.COLUMN_NAME_ID + " LIKE ?";
         String[] selectionArgs = { Integer.toString(mData.id) };
-        db.delete(MovieReaderContract.MovieEntry.TABLE_NAME, selection, selectionArgs);
-        Log.d("delete succes","");
+        movieContentProvider.delete(null,selection,selectionArgs);
         hideButtonFavouriteStatus();
     }
-
-
-    void getAllFavoriteData(){
-        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
-        SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
-
-        Cursor cursor = db2.query(
-                MovieReaderContract.MovieEntry.TABLE_NAME,                     // The table to query
-                null,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                null                                 // The sort order
-        );
-
-        List itemIds = new ArrayList<>();
-        while(cursor.moveToNext()) {
-
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_TITLE));
-            String id = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_ID));
-            Log.d("title ", ""+title);
-            Log.d("id ", ""+id);
-        }
-        Log.d("cursor count ",""+cursor.getCount());
-        cursor.close();
-    }
-
-
-
-    // Instantiate the RequestQueue.
 
 }

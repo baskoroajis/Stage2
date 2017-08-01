@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.baskoroaji.stage2.adapters.MovieListAdapter;
+import com.baskoroaji.stage2.data.MovieContentProvider;
 import com.baskoroaji.stage2.data.MovieReaderContract;
 import com.baskoroaji.stage2.data.MovieReaderDBHelper;
 import com.baskoroaji.stage2.models.Movie;
@@ -38,15 +39,22 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
     public static final String DATA_IDENTIFIER = "DATA";
     private final String SORTBY_IDENTIFIER = "SORTBY";
+    private final String MOVIES_KEY_SAVEDINSTANCE = "MOVIESDATA";
 
     private boolean isSortByPopular = true;
     private boolean isFavourite = false;
 
+    private  MovieContentProvider movieContentProvider;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        movieContentProvider = new MovieContentProvider();
+        movieContentProvider.setContext(this);
+
         mLoadingIndicator = (ProgressBar) findViewById(R.id.pb_loadingMovie);
+
+        Log.d("Create!","");
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_movie);
@@ -55,6 +63,18 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         mRecyclerView.setHasFixedSize(true);
         movieListAdapter = new MovieListAdapter(this);
         mRecyclerView.setAdapter(movieListAdapter);
+
+        if (savedInstanceState != null){
+            if (savedInstanceState.containsKey(MOVIES_KEY_SAVEDINSTANCE)){
+                mListMovie = (ArrayList<Movie>)savedInstanceState.getSerializable(MOVIES_KEY_SAVEDINSTANCE);
+                movieListAdapter.setMovieData(mListMovie);
+                mLoadingIndicator.setVisibility(View.INVISIBLE);
+            }
+        }
+        else{
+            if (!isFavourite)
+                requestData(0);
+        }
 
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -70,9 +90,7 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             }
         });
 
-        if (!isFavourite)
-            requestData(0);
-        else
+        if (isFavourite)
             getFavourite();
 
     }
@@ -115,6 +133,12 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(MOVIES_KEY_SAVEDINSTANCE, new ArrayList(mListMovie) );
+    }
+
+    @Override
     public void onClickItem(int index) {
         Intent i = new Intent(this, DetailActivity.class);
         i.putExtra(DATA_IDENTIFIER, mListMovie.get(index));
@@ -142,23 +166,13 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
         mLoadingIndicator.setVisibility(View.VISIBLE);
     }
 
-    List<Movie> getAllFavoriteData(){
-        MovieReaderDBHelper mDbHelper = new MovieReaderDBHelper(getBaseContext());
-        SQLiteDatabase db2 = mDbHelper.getReadableDatabase();
 
-        Cursor cursor = db2.query(
-                MovieReaderContract.MovieEntry.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
+
+    List<Movie> getAllFavoriteData(){
+        Cursor cursor = movieContentProvider.query(null,null,null,null,null);
 
         List<Movie> moviews = new ArrayList<>();
         while(cursor.moveToNext()) {
-
             String id = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_ID));
             String title = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_TITLE));
             String imgPoster = cursor.getString(cursor.getColumnIndexOrThrow(MovieReaderContract.MovieEntry.COLUMN_NAME_IMGPOSTER));
@@ -168,9 +182,9 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
 
             Movie movie = new Movie(Integer.valueOf(id), title, imgPoster, overView, Double.valueOf(vote_average), releaseDate);
 
-            Log.d("Add ", ""+movie);
             moviews.add(movie);
         }
+
         if (moviews.size() > 0){
             cursor.close();
             return moviews;
@@ -178,8 +192,6 @@ public class MainActivity extends AppCompatActivity implements MovieListAdapter.
             cursor.close();
             return null;
         }
-//        Log.d("cursor count ",""+cursor.getCount());
-//        cursor.close();
     }
 
     public class FetchMovie extends AsyncTask<URL,  Void, List<Movie>>{

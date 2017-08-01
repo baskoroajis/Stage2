@@ -27,7 +27,6 @@ public final class NetworkUtils {
     private static final String APIKEY_URL = "api_key";
     private static final String PAGE = "page";
 
-    //http://api.themoviedb.org/3/movie/119450/reviews?api_key=26f376faf8e14e2fabfc6074c8fef093
 
     public static URL buildUrl(String sortMethod, int paging){
         int page = (paging + 20) / 20;

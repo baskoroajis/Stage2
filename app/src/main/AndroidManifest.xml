@@ -19,6 +19,10 @@
         <activity android:name="com.baskoroaji.stage2.DetailActivity" android:parentActivityName="com.baskoroaji.stage2.MainActivity" android:label="Detail Movies">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.baskoroaji.stage2.MainActivity"/>
         </activity>
+
+        <provider android:name=".data.MovieContentProvider"
+            android:authorities="com.baskoroaji.stage2.data.MovieContentProvider"/>
+
     </application>
 
 </manifest>
